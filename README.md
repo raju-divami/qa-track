@@ -1,67 +1,89 @@
-# qa-track
+# QA Learning Track
 
-A collection of QA practice projects covering API testing, manual test documentation, and end-to-end browser automation.
+A structured, hands-on learning track covering the core disciplines of software quality assurance — from reading a PRD and writing test cases, through API testing, to building a production-grade browser automation framework.
 
----
-
-## Repository Structure
-
-```
-qa-track/
-├── petstore/                       # REST API testing (Postman)
-├── vendor-invoice-management-portal/  # Manual QA documentation
-└── shop-polymer-automation/        # Playwright + TypeScript E2E framework
-```
+Each folder is a self-contained assignment that builds on the previous one.
 
 ---
 
-## Projects
+## Learning Path
 
-### 1. Petstore — API Testing
-Postman collection and environment for the [Petstore API](https://petstore.swagger.io/).
+```
+Manual QA foundations  →  API testing  →  Browser automation
+```
 
-| File | Purpose |
+| Module | Assignment | Skills |
+|---|---|---|
+| 1 | Vendor Invoice Management Portal | Requirements analysis, test planning, manual test cases |
+| 2 | Petstore API Testing | REST API testing, Postman, collection design |
+| 3 | Shop Polymer Automation | Playwright, TypeScript, POM, E2E automation |
+
+---
+
+## Module 1 — Manual QA
+
+**Assignment:** Read a PRD for a vendor invoice management portal, clarify requirements, write a test plan, and produce structured test cases with edge-case coverage.
+
+**Skills practised:**
+- Analysing product requirements documents
+- Writing requirements-clarification questions
+- Structuring a test plan (scope, approach, entry/exit criteria)
+- Authoring manual test cases (preconditions, steps, expected results)
+
+| File | Contents |
 |---|---|
-| `petstore-api_collection.json` | Postman collection with all API requests |
+| `PRD.md` | Product requirements document |
+| `requirements-clarification-document.md` | Clarified requirements and edge cases |
+| `QA-Document.md` | Test plan and full test case suite |
+
+---
+
+## Module 2 — API Testing
+
+**Assignment:** Test the public [Petstore REST API](https://petstore.swagger.io/) using Postman. Design a collection that covers happy paths, negative cases, and environment configuration.
+
+**Skills practised:**
+- Reading OpenAPI / Swagger specifications
+- Structuring Postman collections and environments
+- Writing pre-request scripts and test assertions
+- Generating and reading execution reports
+
+| File | Contents |
+|---|---|
+| `petstore-api_collection.json` | Postman collection (all requests + assertions) |
 | `petstore_environment.json` | Environment variables (base URL, tokens) |
 | `report.html` | Latest test execution report |
 
 ---
 
-### 2. Vendor Invoice Management Portal — Manual QA
-Manual test documentation for a vendor invoice portal.
+## Module 3 — Browser Automation
 
-| File | Purpose |
-|---|---|
-| `PRD.md` | Product requirements document |
-| `QA-Document.md` | Test plan, test cases, and coverage |
-| `requirements-clarification-document.md` | Clarified requirements with edge cases |
+**Assignment:** Build a full Playwright + TypeScript E2E automation framework for the [Shop Polymer PWA](https://shop.polymer-project.org/) from scratch — page objects, reusable components, classified test suites, and end-to-end flow coverage.
 
----
+**Skills practised:**
+- TypeScript and strict-mode configuration
+- Page Object Model (Elements → Components → Pages)
+- Shadow DOM interaction with Playwright locators
+- Test data management (JSON, no hardcoded values in specs)
+- Test classification and tagging (`@sanity`, `@regression`, `@e2e`, `@mobile`)
+- End-to-end flow design and cart/checkout coverage
+- Form validation testing
+- localStorage-based state management in tests
 
-### 3. Shop Polymer Automation — Playwright E2E Framework
-
-Full browser automation suite for the [Shop Polymer PWA](https://shop.polymer-project.org/) built with Playwright and TypeScript.
-
-#### Stack
-- **Test runner:** Playwright Test v1.61
-- **Language:** TypeScript (strict mode)
-- **Pattern:** Page Object Model — Elements → Components → Pages
-- **Browsers:** Chromium, Firefox, WebKit
-
-#### Project Layout
+### Framework Structure
 
 ```
 shop-polymer-automation/
 ├── elements/          # Atomic wrappers (ButtonElement, InputElement, …)
 ├── components/        # Composite UI blocks (HeaderComponent, CartItemComponent, …)
 ├── pages/             # Page objects (HomePage, CheckoutPage, …)
-├── tests/             # Feature specs + flows/
-├── test-data/         # JSON test data (no hardcoded values in specs)
-└── utils/             # Storage, route, wait, price helpers
+├── tests/             # Feature specs
+│   └── flows/         # End-to-end user journey specs
+├── test-data/         # JSON test data — no hardcoded values in specs
+└── utils/             # Storage, route, wait, and price helpers
 ```
 
-#### Setup
+### Setup
 
 ```bash
 cd shop-polymer-automation
@@ -70,7 +92,7 @@ npx playwright install
 cp .env.example .env   # edit BASE_URL if needed
 ```
 
-#### Running Tests
+### Running Tests
 
 | Command | Scope |
 |---|---|
@@ -86,7 +108,7 @@ cp .env.example .env   # edit BASE_URL if needed
 | `npm run test:report` | Open the last HTML report |
 | `npm run typecheck` | TypeScript compile check |
 
-#### Test Classification
+### Test Classification
 
 | Tag | Count | When to run |
 |---|---|---|
@@ -95,7 +117,7 @@ cp .env.example .env   # edit BASE_URL if needed
 | `@e2e` | 8 | On staging / pre-production |
 | `@mobile` | 2 | Alongside regression |
 
-#### Test Coverage
+### Test Coverage
 
 | Spec | Tests | Area |
 |---|---|---|
