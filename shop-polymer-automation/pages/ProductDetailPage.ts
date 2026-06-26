@@ -50,6 +50,7 @@ export class ProductDetailPage extends BasePage {
   readonly description: RichTextElement;
   readonly networkWarning: NetworkWarningComponent;
 
+  /** Initialises all product detail elements anchored to the shop-detail shadow root. */
   constructor(page: Page) {
     super(page);
 
@@ -77,6 +78,7 @@ export class ProductDetailPage extends BasePage {
     return this.appRoot.locator('shop-detail');
   }
 
+  /** Navigates to the product detail page for the given category and item slug. */
   async goto(category: string, item: string): Promise<void> {
     await this.page.goto(`/detail/${category}/${item}`);
     await this.root.waitFor({ state: 'visible' });
@@ -84,49 +86,60 @@ export class ProductDetailPage extends BasePage {
 
   // ── Product info ──────────────────────────────────────────────────────────
 
+  /** Returns the product title text. */
   async getTitle(): Promise<string> {
     return this.title.getText();
   }
 
+  /** Returns the product price text including the currency symbol. */
   async getPrice(): Promise<string> {
     return this.price.getText();
   }
 
+  /** Returns the product price as a floating-point number. */
   async getPriceValue(): Promise<number> {
     return parseFloat((await this.getPrice()).replace('$', ''));
   }
 
+  /** Returns the product description text. */
   async getDescription(): Promise<string> {
     return this.description.getText();
   }
 
   // ── Interactions ──────────────────────────────────────────────────────────
 
+  /** Selects a size option by value. */
   async selectSize(size: string): Promise<void> {
     await this.sizeSelect.selectByValue(size);
   }
 
+  /** Selects a quantity option by value. */
   async selectQuantity(qty: string): Promise<void> {
     await this.quantitySelect.selectByValue(qty);
   }
 
+  /** Clicks Add to Cart and waits for the cart modal to open. */
   async addToCart(): Promise<void> {
     await this.addToCartButton.click();
     await this.cartModal.waitForOpen();
   }
 
+  /** Returns the currently selected size value. */
   async getSelectedSize(): Promise<string> {
     return this.sizeSelect.getValue();
   }
 
+  /** Returns the currently selected quantity value. */
   async getSelectedQuantity(): Promise<string> {
     return this.quantitySelect.getValue();
   }
 
+  /** Returns true if the network warning banner is visible. */
   async isNetworkWarningVisible(): Promise<boolean> {
     return this.networkWarning.isVisible();
   }
 
+  /** Returns true if the product content area is visible. */
   async isContentVisible(): Promise<boolean> {
     return this.root.locator('#content').isVisible();
   }

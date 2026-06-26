@@ -22,6 +22,7 @@ import { CheckoutStatusComponent } from '../components/CheckoutStatusComponent';
 export class CheckoutSuccessPage extends BasePage {
   readonly status: CheckoutStatusComponent;
 
+  /** Initialises the success status component anchored to the shop-checkout shadow root. */
   constructor(page: Page) {
     super(page);
 
@@ -41,22 +42,27 @@ export class CheckoutSuccessPage extends BasePage {
     await this.waitForVisible();
   }
 
+  /** Waits until the success header is visible within the given timeout. */
   async waitForVisible(timeout = 10_000): Promise<void> {
     await this.status.locator().waitFor({ state: 'visible', timeout });
   }
 
+  /** Returns the success page heading text. */
   async getHeading(): Promise<string> {
     return this.status.getHeading();
   }
 
+  /** Returns the success confirmation message text. */
   async getMessage(): Promise<string> {
     return this.status.getMessage();
   }
 
+  /** Clicks the Finish button to return to the home page. */
   async clickFinish(): Promise<void> {
     await this.status.clickAction();
   }
 
+  /** Returns true if the success header is visible. */
   async isVisible(): Promise<boolean> {
     return this.status.isVisible();
   }

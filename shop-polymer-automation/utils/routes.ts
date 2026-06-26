@@ -17,13 +17,20 @@ export type CategoryName =
   | 'ladies_tshirts';
 
 export const routes = {
+  /** Returns the path for the home page. */
   home: (): string => '/',
+  /** Returns the path for a category product list page. */
   list: (category: CategoryName | string): string => `/list/${category}`,
+  /** Returns the path for a product detail page. */
   detail: (category: CategoryName | string, item: string): string =>
     `/detail/${category}/${item}`,
+  /** Returns the path for the cart page. */
   cart: (): string => '/cart',
+  /** Returns the path for the checkout page. */
   checkout: (): string => '/checkout',
+  /** Returns the path for the checkout success page. */
   checkoutSuccess: (): string => '/checkout/success',
+  /** Returns the path for the checkout error page. */
   checkoutError: (): string => '/checkout/error',
 } as const;
 

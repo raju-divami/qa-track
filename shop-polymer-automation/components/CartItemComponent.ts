@@ -35,6 +35,7 @@ export class CartItemComponent {
   readonly price: TextElement;
   readonly deleteButton: ButtonElement;
 
+  /** Initializes the item's interactive elements from the given root locator. */
   constructor(
     private readonly page: Page,
     private readonly root: Locator,
@@ -44,43 +45,53 @@ export class CartItemComponent {
     this.deleteButton = new ButtonElement(page, root.locator('paper-icon-button.delete-button'));
   }
 
+  /** Returns the product name text for this cart item. */
   async getName(): Promise<string> {
     return (await this.root.locator('.name a').textContent())?.trim() ?? '';
   }
 
+  /** Returns the selected size label for this cart item. */
   async getSize(): Promise<string> {
     return (await this.root.locator('.size span').textContent())?.trim() ?? '';
   }
 
+  /** Returns the formatted line-item price string (e.g. "$24.99"). */
   async getPrice(): Promise<string> {
     return this.price.getText();
   }
 
+  /** Returns the line-item price as a parsed float with the dollar sign stripped. */
   async getPriceValue(): Promise<number> {
     const raw = await this.getPrice();
     return parseFloat(raw.replace('$', ''));
   }
 
+  /** Returns the currently selected quantity value for this cart item. */
   async getQuantity(): Promise<string> {
     return this.quantity.getValue();
   }
 
+  /** Changes the quantity select to the given value. */
   async setQuantity(value: string): Promise<void> {
     await this.quantity.selectByValue(value);
   }
 
+  /** Clicks the delete button to remove this item from the cart. */
   async remove(): Promise<void> {
     await this.deleteButton.click();
   }
 
+  /** Clicks the product name link to navigate to the product detail page. */
   async clickProductLink(): Promise<void> {
     await this.root.locator('.name a').click();
   }
 
+  /** Returns whether this cart item is visible on the page. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }
 
+  /** Returns the root locator for this component. */
   locator(): Locator {
     return this.root;
   }

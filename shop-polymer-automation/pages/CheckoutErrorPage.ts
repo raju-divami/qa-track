@@ -23,6 +23,7 @@ import { CheckoutStatusComponent } from '../components/CheckoutStatusComponent';
 export class CheckoutErrorPage extends BasePage {
   readonly status: CheckoutStatusComponent;
 
+  /** Initialises the error status component anchored to the shop-checkout shadow root. */
   constructor(page: Page) {
     super(page);
 
@@ -42,22 +43,27 @@ export class CheckoutErrorPage extends BasePage {
     await this.waitForVisible();
   }
 
+  /** Waits until the error header is visible within the given timeout. */
   async waitForVisible(timeout = 10_000): Promise<void> {
     await this.status.locator().waitFor({ state: 'visible', timeout });
   }
 
+  /** Returns the error page heading text. */
   async getHeading(): Promise<string> {
     return this.status.getHeading();
   }
 
+  /** Returns the error message text. */
   async getErrorMessage(): Promise<string> {
     return this.status.getMessage();
   }
 
+  /** Clicks the Try Again button to return to the checkout form. */
   async clickTryAgain(): Promise<void> {
     await this.status.clickAction();
   }
 
+  /** Returns true if the error header is visible. */
   async isVisible(): Promise<boolean> {
     return this.status.isVisible();
   }

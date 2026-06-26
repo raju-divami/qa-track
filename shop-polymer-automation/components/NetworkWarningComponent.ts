@@ -27,6 +27,7 @@ import { ButtonElement, TextElement } from '../elements';
 export class NetworkWarningComponent {
   readonly tryAgainButton: ButtonElement;
 
+  /** Initializes the try-again button element from the given root locator. */
   constructor(
     private readonly page: Page,
     private readonly root: Locator,
@@ -34,11 +35,13 @@ export class NetworkWarningComponent {
     this.tryAgainButton = new ButtonElement(page, root.locator('button'));
   }
 
+  /** Returns the text of the first visible heading in the warning component. */
   async getHeading(): Promise<string> {
     const heading = this.root.locator('h1').first();
     return (await heading.textContent())?.trim() ?? '';
   }
 
+  /** Returns the descriptive paragraph text, or an empty string if none is present. */
   async getMessage(): Promise<string> {
     const para = this.root.locator('p').first();
     const count = await para.count();
@@ -46,22 +49,27 @@ export class NetworkWarningComponent {
     return (await para.textContent())?.trim() ?? '';
   }
 
+  /** Clicks the "Try Again" button to retry loading. */
   async clickTryAgain(): Promise<void> {
     await this.tryAgainButton.click();
   }
 
+  /** Returns whether the network warning component is visible on the page. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }
 
+  /** Returns whether the network warning component is hidden. */
   async isHidden(): Promise<boolean> {
     return this.root.isHidden();
   }
 
+  /** Waits for the network warning to become visible, up to the given timeout in milliseconds. */
   async waitForVisible(timeout = 5000): Promise<void> {
     await this.root.waitFor({ state: 'visible', timeout });
   }
 
+  /** Returns the root locator for this component. */
   locator(): Locator {
     return this.root;
   }

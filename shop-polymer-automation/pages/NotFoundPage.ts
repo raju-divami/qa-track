@@ -25,6 +25,7 @@ import { NotFoundComponent } from '../components/NotFoundComponent';
 export class NotFoundPage extends BasePage {
   readonly warning: NotFoundComponent;
 
+  /** Initialises the 404 warning component anchored to the shop-404-warning element. */
   constructor(page: Page) {
     super(page);
 
@@ -38,23 +39,28 @@ export class NotFoundPage extends BasePage {
     return this.appRoot.locator('shop-404-warning');
   }
 
+  /** Navigates to an invalid path that triggers the 404 page and waits for it to appear. */
   async goto(invalidPath = '/this-page-does-not-exist'): Promise<void> {
     await this.page.goto(invalidPath);
     await this.waitForVisible();
   }
 
+  /** Waits until the 404 warning element is visible within the given timeout. */
   async waitForVisible(timeout = 5000): Promise<void> {
     await this.root.waitFor({ state: 'visible', timeout });
   }
 
+  /** Returns the 404 message text. */
   async getMessage(): Promise<string> {
     return this.warning.getMessage();
   }
 
+  /** Clicks the link to navigate back to the home page. */
   async goHome(): Promise<void> {
     await this.warning.goHome();
   }
 
+  /** Returns true if the 404 warning element is visible. */
   async isVisible(): Promise<boolean> {
     return this.warning.isVisible();
   }

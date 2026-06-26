@@ -30,6 +30,7 @@ export class CheckoutStatusComponent {
   readonly message: TextElement;
   readonly actionButton: ButtonElement;
 
+  /** Initializes heading, message, and action button elements from the given root locator. */
   constructor(
     private readonly page: Page,
     private readonly root: Locator,
@@ -39,34 +40,42 @@ export class CheckoutStatusComponent {
     this.actionButton = new ButtonElement(page, root.locator('shop-button a'));
   }
 
+  /** Returns the status heading text (e.g. "Thank you"). */
   async getHeading(): Promise<string> {
     return this.heading.getText();
   }
 
+  /** Returns the status message text (e.g. "Your order has been received."). */
   async getMessage(): Promise<string> {
     return this.message.getText();
   }
 
+  /** Clicks the primary action button (Finish or Try again). */
   async clickAction(): Promise<void> {
     await this.actionButton.click();
   }
 
+  /** Returns the value of the `state` attribute on the header element. */
   async getState(): Promise<string | null> {
     return this.root.getAttribute('state');
   }
 
+  /** Returns whether the status state is "success". */
   async isSuccess(): Promise<boolean> {
     return (await this.getState()) === 'success';
   }
 
+  /** Returns whether the status state is "error". */
   async isError(): Promise<boolean> {
     return (await this.getState()) === 'error';
   }
 
+  /** Returns whether the status header is visible on the page. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }
 
+  /** Returns the root locator for this component. */
   locator(): Locator {
     return this.root;
   }

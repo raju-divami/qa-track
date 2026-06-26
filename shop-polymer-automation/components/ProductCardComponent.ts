@@ -27,6 +27,7 @@ export class ProductCardComponent {
   readonly title: TextElement;
   readonly price: TextElement;
 
+  /** Initializes the card's title and price elements from the given root locator. */
   constructor(
     private readonly page: Page,
     private readonly root: Locator,
@@ -41,31 +42,38 @@ export class ProductCardComponent {
     return this.root.locator('a');
   }
 
+  /** Clicks the product card link to navigate to the product detail page. */
   async click(): Promise<void> {
     await this.link.click();
   }
 
+  /** Returns the product title text. */
   async getTitle(): Promise<string> {
     return this.title.getText();
   }
 
+  /** Returns the formatted price string (e.g. "$24.99"). */
   async getPrice(): Promise<string> {
     return this.price.getText();
   }
 
+  /** Returns the price as a parsed float with the dollar sign stripped. */
   async getPriceValue(): Promise<number> {
     const raw = await this.getPrice();
     return parseFloat(raw.replace('$', ''));
   }
 
+  /** Returns the `href` attribute of the card's anchor element. */
   async getHref(): Promise<string | null> {
     return this.link.getAttribute('href');
   }
 
+  /** Returns whether the card is visible on the page. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }
 
+  /** Returns the root locator for this component. */
   locator(): Locator {
     return this.root;
   }

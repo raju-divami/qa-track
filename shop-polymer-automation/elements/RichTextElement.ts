@@ -11,6 +11,7 @@ import { BaseElement } from './BaseElement';
  *   new RichTextElement(page, page.locator('p#desc'))
  */
 export class RichTextElement extends BaseElement {
+  /** Initializes the rich text element with the owning page and root locator. */
   constructor(page: Page, root: Locator) {
     super(page, root);
   }
@@ -25,11 +26,13 @@ export class RichTextElement extends BaseElement {
     return this.root.innerHTML();
   }
 
+  /** Returns true if the element has no text content. */
   async isEmpty(): Promise<boolean> {
     const text = await this.getText();
     return text.length === 0;
   }
 
+  /** Returns true if the text content includes the given string. */
   async containsText(text: string): Promise<boolean> {
     const content = await this.getText();
     return content.includes(text);

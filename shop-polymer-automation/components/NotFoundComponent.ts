@@ -23,6 +23,7 @@ export class NotFoundComponent {
   readonly message: TextElement;
   readonly goHomeButton: ButtonElement;
 
+  /** Initializes the message and home-button elements from the given root locator. */
   constructor(
     private readonly page: Page,
     private readonly root: Locator,
@@ -31,22 +32,27 @@ export class NotFoundComponent {
     this.goHomeButton = new ButtonElement(page, root.locator('a[href="/"]'));
   }
 
+  /** Returns the 404 heading message text. */
   async getMessage(): Promise<string> {
     return this.message.getText();
   }
 
+  /** Clicks the "Go to the home page" button to navigate home. */
   async goHome(): Promise<void> {
     await this.goHomeButton.click();
   }
 
+  /** Returns whether the 404 component is visible on the page. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }
 
+  /** Waits for the 404 component to become visible, up to the given timeout in milliseconds. */
   async waitForVisible(timeout = 5000): Promise<void> {
     await this.root.waitFor({ state: 'visible', timeout });
   }
 
+  /** Returns the root locator for this component. */
   locator(): Locator {
     return this.root;
   }

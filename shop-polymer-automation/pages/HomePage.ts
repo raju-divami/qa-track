@@ -26,6 +26,7 @@ import { ButtonElement, TextElement } from '../elements';
  *   await home.goto();
  */
 export class HomePage extends BasePage {
+  /** Creates a HomePage bound to the given Playwright page. */
   constructor(page: Page) {
     super(page);
   }
@@ -35,6 +36,7 @@ export class HomePage extends BasePage {
     return this.appRoot.locator('shop-home');
   }
 
+  /** Navigates to the home page and waits for the root element to be visible. */
   async goto(): Promise<void> {
     await this.page.goto('/');
     await this.root.waitFor({ state: 'visible' });
@@ -75,10 +77,12 @@ export class HomePage extends BasePage {
     await this.getShopNowButton(categoryName).click();
   }
 
+  /** Returns the number of category tiles on the page. */
   async getCategoryCount(): Promise<number> {
     return this.getCategoryTiles().count();
   }
 
+  /** Returns the text of every category heading on the page. */
   async getAllCategoryTitles(): Promise<string[]> {
     const titles = this.root.locator('.item h2');
     const count = await titles.count();
@@ -90,6 +94,7 @@ export class HomePage extends BasePage {
     return result;
   }
 
+  /** Returns true if the home page root element is visible. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }

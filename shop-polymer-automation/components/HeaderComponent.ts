@@ -35,6 +35,7 @@ export class HeaderComponent {
   readonly cartButton: ButtonElement;
   readonly cartBadge: TextElement;
 
+  /** Initializes header element references from the given root locator. */
   constructor(
     private readonly page: Page,
     private readonly root: Locator,
@@ -46,10 +47,12 @@ export class HeaderComponent {
     this.cartBadge = new TextElement(page, root.locator('.cart-badge'));
   }
 
+  /** Clicks the SHOP logo link to navigate to the home page. */
   async clickLogo(): Promise<void> {
     await this.logoLink.click();
   }
 
+  /** Clicks the cart icon to navigate to the cart page. */
   async clickCart(): Promise<void> {
     await this.cartButton.click();
   }
@@ -64,24 +67,29 @@ export class HeaderComponent {
     await this.backButton.click();
   }
 
+  /** Returns the numeric item count shown in the cart badge, or 0 if not visible. */
   async getCartCount(): Promise<number> {
     const visible = await this.cartBadge.isVisible();
     if (!visible) return 0;
     return parseInt((await this.cartBadge.getText()) || '0', 10);
   }
 
+  /** Returns whether the cart item-count badge is visible. */
   async isCartBadgeVisible(): Promise<boolean> {
     return this.cartBadge.isVisible();
   }
 
+  /** Returns whether the back button is currently visible. */
   async isBackButtonVisible(): Promise<boolean> {
     return this.backButton.isVisible();
   }
 
+  /** Returns whether the hamburger menu button is currently visible. */
   async isMenuButtonVisible(): Promise<boolean> {
     return this.menuButton.isVisible();
   }
 
+  /** Returns the root locator for this component. */
   locator(): Locator {
     return this.root;
   }

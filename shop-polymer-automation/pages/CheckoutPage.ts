@@ -61,6 +61,7 @@ export class CheckoutPage extends BasePage {
   readonly placeOrderButton: ButtonElement;
   readonly emptyCartMessage: TextElement;
 
+  /** Initialises all checkout form elements anchored to the shop-checkout shadow root. */
   constructor(page: Page) {
     super(page);
 
@@ -127,6 +128,7 @@ export class CheckoutPage extends BasePage {
     );
   }
 
+  /** Navigates to the checkout page and waits for the root element to be visible. */
   async goto(): Promise<void> {
     await this.page.goto('/checkout');
     await this.root.waitFor({ state: 'visible' });
@@ -139,29 +141,35 @@ export class CheckoutPage extends BasePage {
     return this.root.locator('.order-summary-row');
   }
 
+  /** Returns an order summary row component at the given zero-based index. */
   getOrderSummaryRow(index: number): OrderSummaryRowComponent {
     return new OrderSummaryRowComponent(this.page, this.getOrderSummaryRows().nth(index));
   }
 
+  /** Returns the number of line items in the order summary. */
   async getOrderSummaryRowCount(): Promise<number> {
     return this.getOrderSummaryRows().count();
   }
 
+  /** Returns the grand total text including the currency symbol. */
   async getGrandTotal(): Promise<string> {
     return this.grandTotalRow.getAmount();
   }
 
+  /** Returns the grand total as a floating-point number. */
   async getGrandTotalValue(): Promise<number> {
     return this.grandTotalRow.getAmountValue();
   }
 
   // ── Section-level fill helpers ────────────────────────────────────────────
 
+  /** Fills the account information section with email and phone. */
   async fillAccountInfo(emailVal: string, phoneVal: string): Promise<void> {
     await this.email.setValue(emailVal);
     await this.phone.setValue(phoneVal);
   }
 
+  /** Fills all shipping address fields. */
   async fillShippingAddress(opts: {
     address: string;
     city: string;
@@ -176,6 +184,7 @@ export class CheckoutPage extends BasePage {
     await this.shipCountry.selectByValue(opts.country);
   }
 
+  /** Enables the billing address toggle and fills all billing address fields. */
   async fillBillingAddress(opts: {
     address: string;
     city: string;
@@ -191,6 +200,7 @@ export class CheckoutPage extends BasePage {
     await this.billCountry.selectByValue(opts.country);
   }
 
+  /** Fills all payment fields including card number, expiry, and CVV. */
   async fillPaymentInfo(opts: {
     name: string;
     number: string;
@@ -205,18 +215,22 @@ export class CheckoutPage extends BasePage {
     await this.ccCVV.setValue(opts.cvv);
   }
 
+  /** Clicks the Place Order button to submit the checkout form. */
   async placeOrder(): Promise<void> {
     await this.placeOrderButton.click();
   }
 
+  /** Returns true if the billing address section is visible. */
   async isBillingAddressVisible(): Promise<boolean> {
     return this.root.locator('#billAddress').isVisible();
   }
 
+  /** Returns true if the empty cart message is visible. */
   async isEmptyCartMessageVisible(): Promise<boolean> {
     return this.emptyCartMessage.isVisible();
   }
 
+  /** Returns true if the checkout page root element is visible. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }

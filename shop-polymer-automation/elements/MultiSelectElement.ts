@@ -12,10 +12,12 @@ import { SelectOption } from './SelectElement';
  *   new MultiSelectElement(page, page.locator('select[multiple]#roles'))
  */
 export class MultiSelectElement extends BaseElement {
+  /** Initializes the multi-select element with the owning page and root locator. */
   constructor(page: Page, root: Locator) {
     super(page, root);
   }
 
+  /** Returns the values of all currently selected options. */
   async getSelectedValues(): Promise<string[]> {
     return this.root.evaluate((el) => {
       const select = el as HTMLSelectElement;
@@ -23,6 +25,7 @@ export class MultiSelectElement extends BaseElement {
     });
   }
 
+  /** Returns the display labels of all currently selected options. */
   async getSelectedLabels(): Promise<string[]> {
     return this.root.evaluate((el) => {
       const select = el as HTMLSelectElement;
@@ -30,14 +33,17 @@ export class MultiSelectElement extends BaseElement {
     });
   }
 
+  /** Selects options matching the given values, replacing any existing selection. */
   async selectValues(values: string[]): Promise<void> {
     await this.root.selectOption(values.map((v) => ({ value: v })));
   }
 
+  /** Selects options matching the given display labels, replacing any existing selection. */
   async selectLabels(labels: string[]): Promise<void> {
     await this.root.selectOption(labels.map((l) => ({ label: l })));
   }
 
+  /** Deselects all options and dispatches a change event. */
   async deselectAll(): Promise<void> {
     await this.root.evaluate((el) => {
       const select = el as HTMLSelectElement;
@@ -46,6 +52,7 @@ export class MultiSelectElement extends BaseElement {
     });
   }
 
+  /** Returns all available options with their value, label, and selected state. */
   async getOptions(): Promise<SelectOption[]> {
     return this.root.evaluate((el) => {
       const select = el as HTMLSelectElement;
@@ -57,11 +64,13 @@ export class MultiSelectElement extends BaseElement {
     });
   }
 
+  /** Returns true if the option with the given value is currently selected. */
   async isOptionSelected(value: string): Promise<boolean> {
     const selected = await this.getSelectedValues();
     return selected.includes(value);
   }
 
+  /** Returns the accessible label for this select, checking aria-label then an associated <label>. */
   async getLabel(): Promise<string | null> {
     const ariaLabel = await this.root.getAttribute('aria-label');
     if (ariaLabel) return ariaLabel;
@@ -77,6 +86,7 @@ export class MultiSelectElement extends BaseElement {
     return null;
   }
 
+  /** Returns true if the select element is disabled. */
   async isDisabled(): Promise<boolean> {
     return this.root.isDisabled();
   }

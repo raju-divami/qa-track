@@ -28,6 +28,7 @@ export class OrderSummaryRowComponent {
   readonly label: TextElement;
   readonly amount: TextElement;
 
+  /** Initializes the label and amount elements from the given root locator. */
   constructor(
     private readonly page: Page,
     private readonly root: Locator,
@@ -37,23 +38,28 @@ export class OrderSummaryRowComponent {
     this.amount = new TextElement(page, root.locator('div:not(.flex)').last());
   }
 
+  /** Returns the row label text (e.g. "Men's Classic Polo" or "Total"). */
   async getLabel(): Promise<string> {
     return this.label.getText();
   }
 
+  /** Returns the formatted amount string (e.g. "$49.98"). */
   async getAmount(): Promise<string> {
     return this.amount.getText();
   }
 
+  /** Returns the amount as a parsed float with the dollar sign stripped. */
   async getAmountValue(): Promise<number> {
     const raw = await this.getAmount();
     return parseFloat(raw.replace('$', ''));
   }
 
+  /** Returns whether this summary row is visible on the page. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }
 
+  /** Returns the root locator for this component. */
   locator(): Locator {
     return this.root;
   }

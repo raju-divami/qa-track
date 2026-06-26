@@ -20,6 +20,7 @@ export abstract class BasePage {
   readonly categoryDrawer: CategoryDrawerComponent;
   readonly cartModal: CartModalComponent;
 
+  /** Initialises shared page components anchored to the shop-app shadow root. */
   constructor(protected readonly page: Page) {
     const app = page.locator('shop-app');
 
@@ -36,14 +37,17 @@ export abstract class BasePage {
 
   abstract goto(...args: string[]): Promise<void>;
 
+  /** Returns the current page URL. */
   async getUrl(): Promise<string> {
     return this.page.url();
   }
 
+  /** Returns the current page title. */
   async getPageTitle(): Promise<string> {
     return this.page.title();
   }
 
+  /** Waits until the network is idle. */
   async waitForLoad(): Promise<void> {
     await this.page.waitForLoadState('networkidle');
   }

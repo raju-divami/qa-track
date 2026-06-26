@@ -29,31 +29,38 @@ export class InputElement extends BaseElement {
     return this.decorator.locator('> label');
   }
 
+  /** Initializes the input element with the owning page and root locator. */
   constructor(page: Page, root: Locator) {
     super(page, root);
   }
 
+  /** Returns the current value of the input field. */
   async getValue(): Promise<string> {
     return this.input.inputValue();
   }
 
+  /** Clears the input and fills it with the given value. */
   async setValue(value: string): Promise<void> {
     await this.input.clear();
     await this.input.fill(value);
   }
 
+  /** Clears the input field. */
   async clear(): Promise<void> {
     await this.input.clear();
   }
 
+  /** Types the given value character-by-character into the input. */
   async type(value: string): Promise<void> {
     await this.input.pressSequentially(value);
   }
 
+  /** Returns the placeholder attribute of the input, or null if absent. */
   async getPlaceholder(): Promise<string | null> {
     return this.input.getAttribute('placeholder');
   }
 
+  /** Returns the visible label text, falling back to the aria-label attribute. */
   async getLabel(): Promise<string | null> {
     const count = await this.labelEl.count();
     if (count > 0) {
@@ -71,6 +78,7 @@ export class InputElement extends BaseElement {
     return this.decorator.getAttribute('error-message');
   }
 
+  /** Returns true if the input has the required attribute. */
   async isRequired(): Promise<boolean> {
     const req = await this.input.getAttribute('required');
     return req !== null;
@@ -85,26 +93,32 @@ export class InputElement extends BaseElement {
     return ariaInvalid === 'true';
   }
 
+  /** Returns true if the input is disabled. */
   async isDisabled(): Promise<boolean> {
     return this.input.isDisabled();
   }
 
+  /** Returns true if the root wrapper element is visible. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }
 
+  /** Focuses the input field. */
   async focus(): Promise<void> {
     await this.input.focus();
   }
 
+  /** Returns the type attribute of the input (e.g. "text", "email"). */
   async getType(): Promise<string | null> {
     return this.input.getAttribute('type');
   }
 
+  /** Returns the id attribute of the underlying input element. */
   async getId(): Promise<string | null> {
     return this.input.getAttribute('id');
   }
 
+  /** Returns the name attribute of the underlying input element. */
   async getName(): Promise<string | null> {
     return this.input.getAttribute('name');
   }

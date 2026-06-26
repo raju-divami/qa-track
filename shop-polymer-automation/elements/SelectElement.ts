@@ -33,28 +33,34 @@ export class SelectElement extends BaseElement {
     return this.root.locator('> select');
   }
 
+  /** Initializes the select element with the owning page and root locator. */
   constructor(page: Page, root: Locator) {
     super(page, root);
   }
 
+  /** Returns the value of the currently selected option. */
   async getValue(): Promise<string> {
     return this.select.inputValue();
   }
 
+  /** Selects the option matching the given value. */
   async selectByValue(value: string): Promise<void> {
     await this.select.selectOption({ value });
   }
 
+  /** Selects the option matching the given display label. */
   async selectByLabel(label: string): Promise<void> {
     await this.select.selectOption({ label });
   }
 
+  /** Returns the display label of the currently selected option. */
   async getSelectedLabel(): Promise<string> {
     const value = await this.getValue();
     const options = await this.getOptions();
     return options.find((o) => o.value === value)?.label ?? '';
   }
 
+  /** Returns all available options with their value, label, and selected state. */
   async getOptions(): Promise<SelectOption[]> {
     return this.select.evaluate((el) => {
       const select = el as HTMLSelectElement;
@@ -94,14 +100,17 @@ export class SelectElement extends BaseElement {
     return null;
   }
 
+  /** Returns true if the underlying select element is disabled. */
   async isDisabled(): Promise<boolean> {
     return this.select.isDisabled();
   }
 
+  /** Returns true if the root wrapper element is visible. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }
 
+  /** Returns the id attribute of the underlying select element. */
   async getId(): Promise<string | null> {
     return this.select.getAttribute('id');
   }

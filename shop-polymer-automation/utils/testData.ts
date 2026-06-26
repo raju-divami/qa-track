@@ -32,11 +32,13 @@ export interface CheckoutFormData {
 
 // ── Valid data ───────────────────────────────────────────────────────────────
 
+/** Valid account credentials for checkout form tests. */
 export const validAccount: AccountData = {
   email: 'testuser@example.com',
   phone: '9876543210',
 };
 
+/** Valid shipping address for checkout form tests. */
 export const validShipping: AddressData = {
   address: '456 Elm Street',
   city: 'Austin',
@@ -45,6 +47,7 @@ export const validShipping: AddressData = {
   country: 'US',
 };
 
+/** Valid billing address for checkout form tests. */
 export const validBilling: AddressData = {
   address: '200 Billing Blvd',
   city: 'San Francisco',
@@ -53,6 +56,7 @@ export const validBilling: AddressData = {
   country: 'US',
 };
 
+/** Valid payment details for checkout form tests. */
 export const validPayment: PaymentData = {
   name: 'Test User',
   number: '4111111111111111',
@@ -125,10 +129,13 @@ export const boundaryFields = {
 
 // ── Product size / quantity options ─────────────────────────────────────────
 
+/** Available product size options. */
 export const sizes = ['XS', 'S', 'M', 'L', 'XL'] as const;
 export type Size = (typeof sizes)[number];
 
+/** Quantity options available on the product detail page. */
 export const detailQuantities = ['1', '2', '3', '4', '5'] as const;
+/** Quantity options available in the cart (1–12). */
 export const cartQuantities = Array.from({ length: 12 }, (_, i) =>
   String(i + 1),
 ) as string[];

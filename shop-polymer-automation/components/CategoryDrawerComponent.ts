@@ -18,6 +18,7 @@ import { Locator, Page } from '@playwright/test';
  *   new CategoryDrawerComponent(page, page.locator('app-drawer'))
  */
 export class CategoryDrawerComponent {
+  /** Initializes the component with the given root locator. */
   constructor(
     private readonly page: Page,
     private readonly root: Locator,
@@ -27,15 +28,18 @@ export class CategoryDrawerComponent {
     return this.root.locator('.drawer-list');
   }
 
+  /** Returns whether the drawer is currently open (has the `opened` attribute). */
   async isOpen(): Promise<boolean> {
     const opened = await this.root.getAttribute('opened');
     return opened !== null;
   }
 
+  /** Clicks the navigation link for the given category name slug. */
   async clickCategory(categoryName: string): Promise<void> {
     await this.drawerList.locator(`a[name="${categoryName}"]`).click();
   }
 
+  /** Returns all category links in the drawer as `{ name, label }` pairs. */
   async getCategoryLinks(): Promise<Array<{ name: string; label: string }>> {
     const links = this.drawerList.locator('a');
     const count = await links.count();
@@ -49,18 +53,22 @@ export class CategoryDrawerComponent {
     return result;
   }
 
+  /** Returns the currently selected category name from the iron-selector's `selected` attribute. */
   async getSelectedCategoryName(): Promise<string | null> {
     return this.drawerList.getAttribute('selected');
   }
 
+  /** Returns whether the drawer element is visible on the page. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }
 
+  /** Waits for the drawer to become visible, up to the given timeout in milliseconds. */
   async waitForOpen(timeout = 3000): Promise<void> {
     await this.root.waitFor({ state: 'visible', timeout });
   }
 
+  /** Returns the root locator for this component. */
   locator(): Locator {
     return this.root;
   }

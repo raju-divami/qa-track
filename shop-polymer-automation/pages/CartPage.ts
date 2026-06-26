@@ -44,6 +44,7 @@ export class CartPage extends BasePage {
   readonly emptyMessage: TextElement;
   readonly summary: CartSummaryComponent;
 
+  /** Initialises cart page elements anchored to the shop-cart shadow root. */
   constructor(page: Page) {
     super(page);
 
@@ -58,6 +59,7 @@ export class CartPage extends BasePage {
     return this.appRoot.locator('shop-cart');
   }
 
+  /** Navigates to the cart page and waits for the root element to be visible. */
   async goto(): Promise<void> {
     await this.page.goto('/cart');
     await this.root.waitFor({ state: 'visible' });
@@ -82,32 +84,39 @@ export class CartPage extends BasePage {
     );
   }
 
+  /** Returns the number of items currently in the cart. */
   async getCartItemCount(): Promise<number> {
     return this.cartItemLocators.count();
   }
 
   // ── State helpers ─────────────────────────────────────────────────────────
 
+  /** Returns true if the empty-cart message is visible. */
   async isEmpty(): Promise<boolean> {
     return this.emptyMessage.isVisible();
   }
 
+  /** Returns true if the cart contains at least one item. */
   async hasItems(): Promise<boolean> {
     return !(await this.isEmpty());
   }
 
+  /** Returns the cart total text including the currency symbol. */
   async getTotal(): Promise<string> {
     return this.summary.getTotalText();
   }
 
+  /** Returns the cart total as a floating-point number. */
   async getTotalValue(): Promise<number> {
     return this.summary.getTotalValue();
   }
 
+  /** Clicks the Checkout button to proceed to the checkout page. */
   async proceedToCheckout(): Promise<void> {
     await this.summary.clickCheckout();
   }
 
+  /** Returns true if the cart page root element is visible. */
   async isVisible(): Promise<boolean> {
     return this.root.isVisible();
   }
