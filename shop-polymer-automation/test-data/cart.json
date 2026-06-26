@@ -1,0 +1,14 @@
+{
+  "primaryProduct": {
+    "category": "mens_tshirts",
+    "size": "M",
+    "quantity": "1"
+  },
+  "secondaryProduct": {
+    "category": "ladies_outerwear",
+    "size": "S",
+    "quantity": "1"
+  },
+  "updatedQuantity": "3",
+  "sameProductSizes": ["S", "L", "XL"]
+}

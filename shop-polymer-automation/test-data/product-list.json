@@ -1,0 +1,11 @@
+{
+  "testCategory": "mens_tshirts",
+  "testCategoryTitle": "Men's T-Shirts",
+  "allCategories": [
+    { "name": "mens_outerwear", "title": "Men's Outerwear" },
+    { "name": "ladies_outerwear", "title": "Ladies Outerwear" },
+    { "name": "mens_tshirts", "title": "Men's T-Shirts" },
+    { "name": "ladies_tshirts", "title": "Ladies T-Shirts" }
+  ],
+  "mobileViewport": { "width": 390, "height": 844 }
+}

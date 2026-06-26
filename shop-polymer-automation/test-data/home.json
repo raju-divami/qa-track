@@ -1,0 +1,34 @@
+{
+  "homeUrl": "/",
+  "expectedCategoryCount": 4,
+  "expectedCategories": [
+    {
+      "name": "mens_outerwear",
+      "title": "Men's Outerwear",
+      "expectedListUrl": "/list/mens_outerwear"
+    },
+    {
+      "name": "ladies_outerwear",
+      "title": "Ladies Outerwear",
+      "expectedListUrl": "/list/ladies_outerwear"
+    },
+    {
+      "name": "mens_tshirts",
+      "title": "Men's T-Shirts",
+      "expectedListUrl": "/list/mens_tshirts"
+    },
+    {
+      "name": "ladies_tshirts",
+      "title": "Ladies T-Shirts",
+      "expectedListUrl": "/list/ladies_tshirts"
+    }
+  ],
+  "desktopViewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "mobileViewport": {
+    "width": 390,
+    "height": 844
+  }
+}

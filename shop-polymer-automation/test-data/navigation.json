@@ -1,0 +1,12 @@
+{
+  "homeUrl": "/",
+  "cartUrl": "/cart",
+  "checkoutUrl": "/checkout",
+  "checkoutSuccessUrl": "/checkout/success",
+  "checkoutErrorUrl": "/checkout/error",
+  "validCategoryRoute": "/list/mens_tshirts",
+  "invalidPaths": ["/nonexistent-page", "/list/fake_category"],
+  "productDetailPattern": "/detail/",
+  "notFoundMessage": "Sorry, we couldn't find that page",
+  "notFoundHomeButtonText": "Go to the home page"
+}

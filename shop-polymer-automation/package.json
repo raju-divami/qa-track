@@ -1,0 +1,35 @@
+{
+  "name": "shop-polymer-automation",
+  "version": "1.0.0",
+  "description": "Playwright + TypeScript test automation suite for the Shop Polymer PWA",
+  "license": "ISC",
+  "scripts": {
+    "test": "playwright test",
+    "test:sanity": "playwright test --grep @sanity",
+    "test:regression": "playwright test --grep @regression",
+    "test:e2e": "playwright test --grep @e2e",
+    "test:mobile": "playwright test --grep @mobile",
+    "test:home": "playwright test tests/home.spec.ts",
+    "test:list": "playwright test tests/product-list.spec.ts",
+    "test:detail": "playwright test tests/product-detail.spec.ts",
+    "test:cart": "playwright test tests/cart.spec.ts tests/cart-modal.spec.ts",
+    "test:checkout": "playwright test tests/checkout.spec.ts tests/checkout-validation.spec.ts",
+    "test:navigation": "playwright test tests/navigation.spec.ts",
+    "test:errors": "playwright test tests/error-handling.spec.ts",
+    "test:flows": "playwright test tests/flows/",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:report": "playwright show-report",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.0.1",
+    "dotenv": "^17.4.2",
+    "typescript": "^6.0.3"
+  }
+}

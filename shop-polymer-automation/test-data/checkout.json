@@ -1,0 +1,52 @@
+{
+  "validAccount": {
+    "email": "testuser@example.com",
+    "phone": "9876543210"
+  },
+  "validShipping": {
+    "address": "456 Elm Street",
+    "city": "Austin",
+    "state": "TX",
+    "zip": "73301",
+    "country": "US"
+  },
+  "validBilling": {
+    "address": "200 Billing Blvd",
+    "city": "San Francisco",
+    "state": "CA",
+    "zip": "94102",
+    "country": "US"
+  },
+  "validPayment": {
+    "name": "Test User",
+    "number": "4111111111111111",
+    "expMonth": "12",
+    "expYear": "2026",
+    "cvv": "123"
+  },
+  "invalidFields": {
+    "email": "notanemail",
+    "phone": "12345",
+    "address": "12",
+    "city": "A",
+    "state": "X",
+    "zip": "99",
+    "cardName": "AB",
+    "cardNumber": "12345678901234",
+    "cvv": "12"
+  },
+  "boundaryFields": {
+    "phone": "1234567890",
+    "address": "12345",
+    "city": "NY",
+    "state": "CA",
+    "zip": "1234",
+    "cardName": "Tom",
+    "cardNumber": "411111111111111",
+    "cvv": "123"
+  },
+  "successHeading": "Thank you",
+  "successMessage": "Your order has been received.",
+  "errorHeading": "We couldn't process your order",
+  "tryAgainUrl": "/checkout"
+}

@@ -1,0 +1,9 @@
+{
+  "testCategory": "mens_tshirts",
+  "defaultSize": "M",
+  "defaultQuantity": "1",
+  "alternateSize": "L",
+  "alternateQuantity": "2",
+  "allSizes": ["XS", "S", "M", "L", "XL"],
+  "allQuantities": ["1", "2", "3", "4", "5"]
+}
